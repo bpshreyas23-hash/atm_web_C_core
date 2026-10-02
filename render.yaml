@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: atm-web-c-core
+    runtime: python
+    buildCommand: "python -m pip install -r requirements.txt && gcc -shared -fPIC -O2 -o libatm_core.so atm_core.c"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: TEXTPLATE_API_TOKEN
+        sync: false
+      - key: TEXTPLATE_TEMPLATE_ID
+        sync: false
+      - key: FLASK_SECRET_KEY
+        generateValue: true
